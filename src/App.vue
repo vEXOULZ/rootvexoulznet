@@ -4,19 +4,20 @@ import log_bluesky from './assets/log_bluesky.png'
 import log_twitch from './assets/log_twitch.png'
 import log_vods from './assets/log_vods.png'
 import log_shop from './assets/log_shop.png'
+// import bg from './assets/space.png'
 </script>
 
 <template>
 
-    <intro>
-      <img alt="logo" class="logo" src="./assets/vexoulHELP.png" width="213" height="75" />
-      <p>Did you nose?</p>
-      <p>Vexoulz is not real</p>
-      <p>You are not real</p>
-      <p>No one is real</p>
-      <p>The only thing that's real</p>
-      <p>Is my love for yo momma</p>
-    </intro>
+  <intro>
+    <img alt="logo" class="logo" src="./assets/vexoulHELP.png" width="213" height="75" />
+    <p>Did you nose?</p>
+    <p>Vexoulz is not real</p>
+    <p>You are not real</p>
+    <p>No one is real</p>
+    <p>The only thing that's real</p>
+    <p>Is my love for yo momma</p>
+  </intro>
 
 
   <main>
@@ -27,18 +28,18 @@ import log_shop from './assets/log_shop.png'
   </main>
 
   <footer>
-    Made by vEXOULZ @ 2025 with pain. HELP
+    Made by: vEXOULZ @2025
   </footer>
 
 </template>
 
 <style scoped>
-body {
+/* body {
   min-height: 100vh;
   margin: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
-} 
+}  */
 
 intro {
   line-height: 1.5;
