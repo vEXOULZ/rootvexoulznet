@@ -4,6 +4,7 @@ import log_bluesky from './assets/log_bluesky.png'
 import log_twitch from './assets/log_twitch.png'
 import log_vods from './assets/log_vods.png'
 import log_shop from './assets/log_shop.png'
+import log_discord from './assets/log_discord.png'
 // import bg from './assets/space.png'
 </script>
 
@@ -21,6 +22,7 @@ import log_shop from './assets/log_shop.png'
 
 
   <main>
+      <SocialLink msg="Discord"    :img=log_bluesky submsg="vEXcord"          link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
       <SocialLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net" style="color: rgb(16, 129, 246);"/>
       <SocialLink msg="Twitch"     :img=log_twitch  submsg="ttv/vexoulz"      link="https://twitch.tv/vexoulz"            style="color: rgb(172, 81, 248);"/>
       <SocialLink msg="Vods"       :img=log_vods    submsg="vods.vexoulz.net" link="https://vods.vexoulz.net"             style="color: rgb(224, 179, 157);"/>
