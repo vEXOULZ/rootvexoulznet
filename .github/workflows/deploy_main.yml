@@ -17,6 +17,6 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /var/www/rootvexoulznet/
+            cd /var/www/${{ github.event.repository.name }}/
             npm install
             npm run build
