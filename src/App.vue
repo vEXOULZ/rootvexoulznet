@@ -59,6 +59,7 @@ import log_github from './assets/log_github.png'
 
 #intro {
   /* position: absolute; */
+  text-align: center;
   margin: 5px;
   line-height: 2;
 }
