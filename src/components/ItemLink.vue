@@ -32,7 +32,7 @@ defineProps({
     </i>
     <a :href="link" target="_blank" rel="noopener">
       <div class="details">
-          <h3>
+          <h3 class="rainbow-text">
             {{ msg }}
           </h3>
           <p class="submsg" :style="style">{{ submsg }}</p>
@@ -44,7 +44,7 @@ defineProps({
 <style scoped>
 
 .submsg {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .logo {
@@ -74,11 +74,11 @@ i {
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 500;
-  padding-top: 0rem;
+  padding-top: 0.2rem;
   margin-top: -0.2rem;
-  margin-bottom: 0rem;
+  margin-bottom: -0.2rem;
   color: var(--color-heading);
 }
 
@@ -93,7 +93,7 @@ h3 {
     left: 0px;
     position: absolute;
     border: 1px solid var(--color-border);
-    background: var(--color-background);
+    background: rgba(60, 60, 60, 0.15);
     border-radius: 8px;
     width: 50px;
     height: 50px;
@@ -103,7 +103,7 @@ h3 {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
-    left: 26px;
+    left: 25px;
     bottom: calc(50% + 25px);
     height: calc(50% - 25px);
   }
@@ -112,7 +112,7 @@ h3 {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
-    left: 26px;
+    left: 25px;
     top: calc(50% + 25px);
     height: calc(50% - 25px);
   }

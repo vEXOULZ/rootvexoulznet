@@ -1,5 +1,6 @@
 <script setup>
-import SocialLink from './components/SocialLink.vue'
+import ItemLink from './components/ItemLink.vue'
+import ItemGroup from './components/ItemGroup.vue'
 import log_bluesky from './assets/log_bluesky.png'
 import log_twitch from './assets/log_twitch.png'
 import log_vods from './assets/log_vods.png'
@@ -11,25 +12,38 @@ import log_github from './assets/log_github.png'
 
 <template>
 
-  <intro>
-    <img alt="logo" class="logo" src="./assets/vexoulHELP.png" width="213" height="75" />
-    <p>Did you nose?</p>
-    <p>Vexoulz is not real</p>
-    <p>You are not real</p>
-    <p>No one is real</p>
-    <p>The only thing that's real</p>
-    <p>Is my love for yo momma</p>
-  </intro>
+  <div id="grid">
+      
+    <div id="intro" class="rainbow-text" style="grid-row: 1 / span 2; grid-column: 1;">
+      <img alt="logo" class="logo" src="./assets/vexoulHELP.png" width="213" height="75" />
+      <p>Did you nose?</p>
+      <p>Vexoulz is not real</p>
+      <p>You are not real</p>
+      <p>No one is real</p>
+      <p>The only thing that's real</p>
+      <p>Is my love for yo momma</p>
+    </div>
 
-  
-  <main>
-      <SocialLink msg="Twitch"     :img=log_twitch  submsg="ttv/vexoulz"      link="https://twitch.tv/vexoulz"            style="color: rgb(172, 81, 248);"/>
-      <SocialLink msg="Vods"       :img=log_vods    submsg="vods.vexoulz.net" link="https://vods.vexoulz.net"             style="color: rgb(218, 0, 60);"/>
-      <SocialLink msg="Merch shop" :img=log_shop    submsg="shop.vexoulz.net" link="https://shop.vexoulz.net"             style="color: rgb(169, 129, 97);"/>
-      <SocialLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net" style="color: rgb(16, 129, 246);"/>
-      <SocialLink msg="Discord"    :img=log_discord submsg="vEXcord"          link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
-      <SocialLink msg="Github"     :img=log_github  submsg="github/vEXOULZ"   link="https://github.com/vEXOULZ"           style="color: rgb(200, 200, 200);"/>
-  </main>
+
+    <ItemGroup title="Socials" style="grid-row: 1; grid-column: 2;">
+      <ItemLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net" style="color: rgb(16, 129, 246);"/>
+      <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord"          link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
+    </ItemGroup>
+
+    <ItemGroup title="Stream" style="grid-row: 1; grid-column: 3;">
+        <ItemLink msg="Twitch"     :img=log_twitch  submsg="ttv/vexoulz"      link="https://twitch.tv/vexoulz"            style="color: rgb(172, 81, 248);"/>
+        <ItemLink msg="Vods"       :img=log_vods    submsg="vods.vexoulz.net" link="https://vods.vexoulz.net"             style="color: rgb(218, 0, 60);"/>
+    </ItemGroup>
+
+    <ItemGroup title="Money" style="grid-row: 2; grid-column: 2;">
+        <ItemLink msg="Merch shop" :img=log_shop    submsg="shop.vexoulz.net" link="https://shop.vexoulz.net"             style="color: rgb(169, 129, 97);"/>
+    </ItemGroup>
+
+    <ItemGroup title="Dev" style="grid-row: 2; grid-column: 3;">
+      <ItemLink msg="Github"     :img=log_github  submsg="github/vEXOULZ"   link="https://github.com/vEXOULZ"           style="color: rgb(200, 200, 200);"/>
+    </ItemGroup>
+
+  </div>
 
   <footer>
     Made by: vEXOULZ @2025
@@ -38,35 +52,15 @@ import log_github from './assets/log_github.png'
 </template>
 
 <style scoped>
-/* body {
-  min-height: 100vh;
-  margin: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}  */
 
-intro {
-  line-height: 1.5;
-  min-height: 50px;
+.logo {
+  margin-bottom: 20px;
 }
 
-footer {
-  min-height: 50px;
-  place-items: center;
-  padding-left: calc(var(--section-gap));
+#intro {
+  /* position: absolute; */
+  margin: 5px;
+  line-height: 2;
 }
 
-@media (min-width: 128px) {
-  intro {
-    display: grid;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 4);
-  }
-
-  intro .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>

@@ -1,7 +1,7 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
@@ -56,15 +56,38 @@ footer {
   }
 }
 
-@media (min-width: 512px) {
+.rainbow-text {
+  background-image: repeating-linear-gradient(90deg, rgb(73, 73, 73), white);
+  background-size: 100% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) {
   body {
     display: flex;
     place-items: center;
   }
 
-  #app {
+  #grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* padding: 0 2rem; */
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #grid {
+    /* display: grid; */
+    /* grid-template-columns: 1fr; */
+    /* padding: 0 2rem; */
+    align-items: center;
   }
 }
