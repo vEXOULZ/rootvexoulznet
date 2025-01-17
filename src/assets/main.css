@@ -56,7 +56,7 @@ footer {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 512px) {
   body {
     display: flex;
     place-items: center;

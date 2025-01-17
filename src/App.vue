@@ -25,7 +25,7 @@ import log_github from './assets/log_github.png'
   <main>
       <SocialLink msg="Twitch"     :img=log_twitch  submsg="ttv/vexoulz"      link="https://twitch.tv/vexoulz"            style="color: rgb(172, 81, 248);"/>
       <SocialLink msg="Vods"       :img=log_vods    submsg="vods.vexoulz.net" link="https://vods.vexoulz.net"             style="color: rgb(224, 179, 157);"/>
-      <SocialLink msg="Merch shop" :img=log_shop    submsg="shop.vexoulz.net" link="https://shop.vexoulz.net"             style="color: rgb(200, 200, 200);"/>
+      <SocialLink msg="Merch shop" :img=log_shop    submsg="shop.vexoulz.net" link="https://shop.vexoulz.net"             style="color: rgb(230, 41, 45);"/>
       <SocialLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net" style="color: rgb(16, 129, 246);"/>
       <SocialLink msg="Discord"    :img=log_discord submsg="vEXcord"          link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
       <SocialLink msg="Github"     :img=log_github  submsg="github/vEXOULZ"   link="https://github.com/vEXOULZ"           style="color: rgb(200, 200, 200);"/>
