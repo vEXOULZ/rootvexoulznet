@@ -27,16 +27,16 @@ import log_github from './assets/log_github.png'
 
     <ItemGroup title="Socials" style="grid-row: 1; grid-column: 2;">
       <ItemLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net" style="color: rgb(16, 129, 246);"/>
-      <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord"          link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
+      <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord server"   link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
     </ItemGroup>
 
     <ItemGroup title="Stream" style="grid-row: 1; grid-column: 3;">
-        <ItemLink msg="Twitch"     :img=log_twitch  submsg="ttv/vexoulz"      link="https://twitch.tv/vexoulz"            style="color: rgb(172, 81, 248);"/>
-        <ItemLink msg="Vods"       :img=log_vods    submsg="vods.vexoulz.net" link="https://vods.vexoulz.net"             style="color: rgb(218, 0, 60);"/>
+      <ItemLink msg="Twitch"     :img=log_twitch  submsg="ttv/vexoulz"      link="https://twitch.tv/vexoulz"            style="color: rgb(172, 81, 248);"/>
+      <ItemLink msg="Vods"       :img=log_vods    submsg="vods.vexoulz.net" link="https://vods.vexoulz.net"             style="color: rgb(218, 0, 60);"/>
     </ItemGroup>
 
     <ItemGroup title="Money" style="grid-row: 2; grid-column: 2;">
-        <ItemLink msg="Merch shop" :img=log_shop    submsg="shop.vexoulz.net" link="https://shop.vexoulz.net"             style="color: rgb(169, 129, 97);"/>
+      <ItemLink msg="Merch shop" :img=log_shop    submsg="shop.vexoulz.net" link="https://shop.vexoulz.net"             style="color: rgb(169, 129, 97);"/>
     </ItemGroup>
 
     <ItemGroup title="Dev" style="grid-row: 2; grid-column: 3;">
