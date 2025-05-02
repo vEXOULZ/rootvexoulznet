@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "noisejs": "^2.1.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {

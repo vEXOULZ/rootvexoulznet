@@ -7,15 +7,33 @@ import log_vods from './assets/log_vods.png'
 import log_shop from './assets/log_shop.png'
 import log_discord from './assets/log_discord.png'
 import log_github from './assets/log_github.png'
-// import bg from './assets/space.png'
+
+import noisejs from 'noisejs/index.js'
+
+console.log(noisejs.Noise)
+
+var noise = new noisejs.Noise()
+noise.seed(Math.random());
 
 function freshDot(){
+
+  var top = 100 * Math.random();
+  var left = 100 * Math.random();
+
+  var chance = (noise.perlin2(left/10, top/10) + 0.5) / 1.5;
+  console.log(top)
+  console.log(left)
+  console.log(chance)
+
+  if (Math.random() > chance) return;
+
+  console.log("OK")
+
+
   var obj = document.createElement("div");
   obj.classList.add("star");
-  // obj.style.top = (window.innerHeight * Math.random()) + 'px';
-  // obj.style.left = (window.innerWidth * Math.random()) + 'px';
-  obj.style.top = (100 * Math.random()) + 'vh';
-  obj.style.left = (100 * Math.random()) + 'vw';
+  obj.style.top = top + 'vh';
+  obj.style.left = left + 'vw';
 
   var sequence = Math.random();
   var sizeMult = 1;
@@ -54,7 +72,7 @@ function freshDot(){
 }
 
 function generateDots() {
-  var size = 3000;
+  var size = 5000;
   for(var i = 0 ; i < size; i++ ){
     new freshDot();
   }
