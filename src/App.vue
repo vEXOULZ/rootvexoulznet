@@ -19,16 +19,8 @@ function freshDot(){
 
   var top = 100 * Math.random();
   var left = 100 * Math.random();
-
   var chance = (noise.perlin2(left/10, top/10) + 0.5) / 1.5;
-  console.log(top)
-  console.log(left)
-  console.log(chance)
-
   if (Math.random() > chance) return;
-
-  console.log("OK")
-
 
   var obj = document.createElement("div");
   obj.classList.add("star");
