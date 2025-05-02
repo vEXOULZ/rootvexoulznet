@@ -78,7 +78,9 @@ function generateDots() {
   }
 }
 
-generateDots();
+if (document.getElementsByClassName("star").length == 0) {
+  generateDots();
+}
 </script>
 
 <template>
