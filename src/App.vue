@@ -72,7 +72,7 @@ function freshDot(){
 }
 
 function generateDots() {
-  var size = 5000;
+  var size = 1000;
   for(var i = 0 ; i < size; i++ ){
     new freshDot();
   }
