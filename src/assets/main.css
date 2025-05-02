@@ -19,10 +19,47 @@ i,
 
 body {
   position: relative;
-  background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(./space.jpg);
+  /* background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(./space.jpg); */
+  background-color: #000;
   background-size: 100%;
   padding-bottom: 50px;
+  /* background-image: radial-gradient(circle at 1px 1px, black 1px, transparent 0);
+  background-size: 10px 10px; */
 }
+
+.star {
+  position: fixed;
+  border-radius: 50%;
+}
+
+.sO { background-color: #92b5ff; }
+.sB { background-color: #a2c0ff; }
+.sA { background-color: #d5e0ff; }
+.sF { background-color: #f9f5ff; }
+.sG { background-color: #ffede3; }
+.sK { background-color: #ffdab5; }
+.sM { background-color: #ffb56c; }
+
+.twinkle {
+	opacity: 0.6;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0.2;
+	}
+	50% {
+		opacity: 0.6;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+
 
 body::after {
   content: '';

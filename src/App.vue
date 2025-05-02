@@ -8,6 +8,59 @@ import log_shop from './assets/log_shop.png'
 import log_discord from './assets/log_discord.png'
 import log_github from './assets/log_github.png'
 // import bg from './assets/space.png'
+
+function freshDot(){
+  var obj = document.createElement("div");
+  obj.classList.add("star");
+  // obj.style.top = (window.innerHeight * Math.random()) + 'px';
+  // obj.style.left = (window.innerWidth * Math.random()) + 'px';
+  obj.style.top = (100 * Math.random()) + 'vh';
+  obj.style.left = (100 * Math.random()) + 'vw';
+
+  var sequence = Math.random();
+  var sizeMult = 1;
+
+  if (sequence < 0.0000006) {
+    obj.classList.add("sO");
+    sizeMult = 6.6;
+  } else if (sequence < 0.0024) {
+    obj.classList.add("sB");
+    sizeMult = 1.8;
+  } else if (sequence < 0.0122) {
+    obj.classList.add("sA");
+    sizeMult = 1.4;
+  } else if (sequence < 0.06) {
+    obj.classList.add("sF");
+    sizeMult = 1.15;
+  } else if (sequence < 0.152) {
+    obj.classList.add("sG");
+    sizeMult = 0.96;
+  } else if (sequence < 0.24) {
+    obj.classList.add("sK");
+    sizeMult = 0.7;
+  } else {
+    obj.classList.add("sM");
+    sizeMult = 0.5;
+  }
+
+  obj.classList.add("twinkle");
+  obj.style.animationDuration = (Math.random() * 5 + 1).toString() + "s";
+
+  var size = Math.floor(2 * sizeMult * Math.random()) + 1;
+  obj.style.height =  size + 'px';
+  obj.style.width = size + 'px';
+  
+  document.body.appendChild(obj);
+}
+
+function generateDots() {
+  var size = 3000;
+  for(var i = 0 ; i < size; i++ ){
+    new freshDot();
+  }
+}
+
+generateDots();
 </script>
 
 <template>
