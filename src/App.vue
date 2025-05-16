@@ -92,7 +92,7 @@ if (document.getElementsByClassName("star").length == 0) {
 
     <ItemGroup title="Socials" style="grid-row: 1; grid-column: 2;">
       <ItemLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net" style="color: rgb(16, 129, 246);"/>
-      <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord server"   link="https://discord.gg/QxWfs9e"           style="color: rgb(86, 98, 246);"/>
+      <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord server"   link="https://discord.gg/vexoulz"           style="color: rgb(86, 98, 246);"/>
     </ItemGroup>
 
     <ItemGroup title="Stream" style="grid-row: 1; grid-column: 3;">
