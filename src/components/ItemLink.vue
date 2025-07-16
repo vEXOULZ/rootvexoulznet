@@ -19,6 +19,16 @@ defineProps({
   style: {
     type: String,
     required: false,
+  },
+  width: {
+    type: Number,
+    required: false,
+    default: 35
+  },
+  height: {
+    type: Number,
+    required: false,
+    default: 35
   }
 })
 </script>
@@ -26,11 +36,11 @@ defineProps({
 <template>
   <div class="item">
     <i>
-      <a :href="link" target="_blank" rel="noopener">
-        <img :alt="msg" class="logo" :src="img" width="35" height="35" />
+      <a :href="link" rel="noopener">
+        <img :alt="msg" class="logo" :src="img" :width=width :height=height />
       </a>
     </i>
-    <a :href="link" target="_blank" rel="noopener">
+    <a :href="link" rel="noopener">
       <div class="details">
           <h3 class="rainbow-text">
             {{ msg }}
@@ -81,6 +91,26 @@ h3 {
   margin-bottom: -0.2rem;
   color: var(--color-heading);
 }
+
+@media (hover: hover) {
+  i {
+    border-radius: 5px;
+  }
+
+  i:hover {
+    /* background-color: hsla(0, 0%, 67%, 0.185); */
+    box-shadow: 0 0 0 6px #00000088, 0 0 0 7px #ffffff;
+  }
+
+  a {
+    border-radius: 5px;
+  }
+
+  a:hover {
+    background-color: hsla(0, 0%, 67%, 0.185);
+  }
+}
+
 
 @media (min-width: 128px) {
   .item {

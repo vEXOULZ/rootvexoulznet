@@ -78,26 +78,6 @@ footer {
   padding: 0;
   text-align: center;
 }
-
-@media (hover: hover) {
-  i {
-    border-radius: 5px;
-  }
-
-  i:hover {
-    /* background-color: hsla(0, 0%, 67%, 0.185); */
-    box-shadow: 0 0 0 6px #00000088, 0 0 0 7px #ffffff;
-  }
-
-  a {
-    border-radius: 5px;
-  }
-
-  a:hover {
-    background-color: hsla(0, 0%, 67%, 0.185);
-  }
-}
-
 .rainbow-text {
   background-image: repeating-linear-gradient(90deg, rgb(73, 73, 73), white);
   background-size: 100% 100%;
@@ -114,9 +94,8 @@ footer {
 
   #grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     /* padding: 0 2rem; */
-    align-items: center;
+    align-items: start;
   }
 }
 
@@ -132,4 +111,15 @@ footer {
     /* padding: 0 2rem; */
     align-items: center;
   }
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+#intro {
+  /* position: absolute; */
+  text-align: center;
+  margin: 5px;
+  line-height: 2;
 }

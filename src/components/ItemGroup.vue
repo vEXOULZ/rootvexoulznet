@@ -27,8 +27,8 @@ defineProps({
   /* border: 3px inset var(--color-border); */
   /* background: var(--color-background); */
   /* border-radius: 4px; */
-  padding: 2px;
-  margin: 5px;
+  padding: 7px;
+  margin: 0px;
   /* width: 50px;
   height: 50px; */
 }
