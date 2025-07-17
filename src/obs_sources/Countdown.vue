@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .textcamp {
         text-align:center;
         color:white;
-        font-family:Verdana;
+        font-family:monospace;
         text-shadow: 1px 1px 1px black;
         margin-bottom: 0;
         margin: 0;
