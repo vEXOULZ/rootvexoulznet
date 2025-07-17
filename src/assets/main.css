@@ -20,11 +20,20 @@ i,
 body {
   position: relative;
   /* background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(./space.jpg); */
-  background-color: #000;
   background-size: 100%;
-  padding-bottom: 50px;
   /* background-image: radial-gradient(circle at 1px 1px, black 1px, transparent 0);
   background-size: 10px 10px; */
+}
+
+body.default {
+  background-color: #000;
+  padding-bottom: 50px;
+}
+
+body.bodyempty {
+  overflow: hidden; /* Hide scrollbars */
+  background-color: #00000000;
+  padding: 0px;
 }
 
 .star {

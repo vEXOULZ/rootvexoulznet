@@ -12,6 +12,8 @@ import alarmsound from './../assets/alarm.mp3'
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    document.getElementsByTagName('body')[0].classList.add("bodyempty")
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const totalSeconds = 3600 * HOURS + 60 * MINUTES + SECONDS
 
-    
+
     var t = new Date().getTime() + totalSeconds * 1000;
 
     function pad(n, width, z) {
@@ -96,4 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         margin: 0;
         padding-top:0
     }
+
+        
 </style>
