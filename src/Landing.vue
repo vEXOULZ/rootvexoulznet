@@ -55,7 +55,7 @@ import log_youtube from './assets/log_youtube.png'
         <div style="grid-row: 1 / span 2; grid-column: 3;">
           <ItemGroup title="Socials">
             <ItemLink msg="Bluesky"    :img=log_bluesky submsg="@vexoulz.net"     link="https://bsky.app/profile/vexoulz.net"  style="color: rgb(16, 129, 246);"/>
-            <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord server"   link="https://discord.gg/vexoulz"            style="color: rgb(86, 98, 246);"/>
+            <ItemLink msg="Discord"    :img=log_discord submsg="vEXcord server"   link="https://discord.vexoulz.net"           style="color: rgb(86, 98, 246);"/>
             <ItemLink msg="Steam"      :img=log_steam   submsg="steam/vexoulz"    link="https://steamcommunity.com/id/vexoulz/"style="color: rgb(120, 120, 120);"/>
           </ItemGroup>
 
