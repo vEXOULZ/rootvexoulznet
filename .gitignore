@@ -27,3 +27,10 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# Local, host-specific files never belong in this repo (private hosting lives in homelab-docs)
+.env
+.env.*
+!.env.example
+*.local.*
+/deploy.local/
