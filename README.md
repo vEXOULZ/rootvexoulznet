@@ -18,7 +18,7 @@ git config core.hooksPath .githooks   # once per clone: branch-name rules, see C
 
 | path | what |
 |---|---|
-| `/` | links, and a live/offline card from the archive API (`/streams?is_live=true`) |
+| `/` | links, and a stream card from the archive API: the live stream (`/streams?is_live=true`) or, offline, the latest VOD; both link to the past streams |
 | `/obs_sources` | list of the OBS browser sources |
 | `/obs_sources/countdown?h=&m=&s=&text=` | transparent countdown for OBS; no site chrome |
 | anything else | 404 |
