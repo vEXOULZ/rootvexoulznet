@@ -22,40 +22,42 @@ export interface StreamCard {
   duration?: number
 }
 
-interface Page<T> {
-  data: T[]
-}
-interface StreamRow {
-  id: string
-  started_at: string | null
-  is_live: boolean | null
+interface RawChapter {
+  name?: string | null
+  image?: string | null
+  imageTemplate?: string | null
 }
 interface VodRow {
   id: string
   title: string | null
   createdAt: string
   duration: string | null
+  duration_seconds?: number | null
   thumbnail_url: string | null
-  chapters: { name?: string | null; image?: string | null }[] | null
+  chapters: RawChapter[] | null
   youtube: { type?: string; part?: number; thumbnail_url?: string | null }[] | null
 }
-
-async function get<T>(path: string, signal?: AbortSignal): Promise<Page<T>> {
-  const res = await fetch(`${ARCHIVE_API}${path}`, { signal, headers: { accept: 'application/json' } })
-  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`)
-  return (await res.json()) as Page<T>
+/** `/v1/status`: the live stream, and its VOD row (live) or the latest VOD (offline). */
+interface Status {
+  live: boolean
+  stream: { id: string; started_at: string | null; title?: string | null; game?: RawChapter | null } | null
+  vod: VodRow | null
 }
 
-/** Twitch box art comes at a tiny baked size (`…-40x53.jpg`); ask for one that stays sharp as a poster. */
-const boxArt = (url?: string | null) => (url ? url.replace(/-\d+x\d+(\.\w+)$/, '-144x192$1') : undefined)
+/** Box art at a size that stays sharp as a poster: from Twitch's `{width}x{height}` template, or by replacing the
+ *  small size baked into older URLs (`…-40x53.jpg`). */
+function boxArt(c: RawChapter | null | undefined): string | undefined {
+  if (c?.imageTemplate) return c.imageTemplate.replace('{width}x{height}', '144x192')
+  return c?.image?.replace(/-\d+x\d+(\.\w+)$/, '-144x192$1')
+}
 
 /** Distinct games in play order (a game played twice shows once, where it was last played). */
-function gamesOf(vod: VodRow | undefined): CardGame[] {
+function gamesOf(chapters: readonly RawChapter[]): CardGame[] {
   const games = new Map<string, CardGame>()
-  for (const c of vod?.chapters ?? []) {
+  for (const c of chapters) {
     const name = c.name?.trim() || 'No category'
     games.delete(name)
-    games.set(name, { name, image: boxArt(c.image) })
+    games.set(name, { name, image: boxArt(c) })
   }
   return [...games.values()]
 }
@@ -74,41 +76,34 @@ function thumbnailOf(vod: VodRow): string | undefined {
   return first?.thumbnail_url ?? vod.thumbnail_url ?? undefined
 }
 
-/**
- * The live stream (the worker keeps `streams.is_live` current, and the live VOD row has the title and games), or
- * the latest VOD when offline. The preview image changes every refresh, so it carries the current minute.
- */
+/** The live stream, or the latest VOD when offline: one `/v1/status` call. The Twitch preview changes every
+ *  refresh, so its URL carries the current minute. */
 export async function fetchStreamCard(signal?: AbortSignal): Promise<StreamCard> {
-  const streams = await get<StreamRow>('/streams?is_live=true&$limit=1', signal)
-  const stream = streams.data[0]
+  const res = await fetch(`${ARCHIVE_API}/v1/status`, { signal, headers: { accept: 'application/json' } })
+  if (!res.ok) throw new Error(`/v1/status: HTTP ${res.status}`)
+  const { live, stream, vod } = (await res.json()) as Status
 
-  if (stream) {
-    const card: StreamCard = {
+  if (live) {
+    // The stream's own game goes last: it's the freshest (the VOD's chapters can lag behind a category change).
+    const games = gamesOf([...(vod?.chapters ?? []), ...(stream?.game?.name ? [stream.game] : [])])
+    return {
       live: true,
-      games: [],
+      title: stream?.title ?? vod?.title ?? undefined,
+      games,
       href: TWITCH_URL,
       image: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${TWITCH_CHANNEL}-640x360.jpg?t=${Math.floor(Date.now() / 60_000)}`,
-      startedAt: stream.started_at ? new Date(stream.started_at) : undefined,
+      startedAt: stream?.started_at ? new Date(stream.started_at) : undefined,
     }
-    try {
-      const vod = (await get<VodRow>(`/vods?stream_id=${encodeURIComponent(stream.id)}&$limit=1`, signal)).data[0]
-      card.title = vod?.title ?? undefined
-      card.games = gamesOf(vod)
-    } catch {
-      // Title and games are nice-to-haves; being live is what matters.
-    }
-    return card
   }
 
-  const vod = (await get<VodRow>('/vods?$sort[createdAt]=-1&$limit=1', signal)).data[0]
   if (!vod) return { live: false, games: [], href: VODS_URL }
   return {
     live: false,
     title: vod.title ?? undefined,
-    games: gamesOf(vod),
+    games: gamesOf(vod.chapters ?? []),
     image: thumbnailOf(vod),
     href: watchUrl(vod),
     date: new Date(vod.createdAt),
-    duration: seconds(vod.duration) || undefined,
+    duration: vod.duration_seconds ?? (seconds(vod.duration) || undefined),
   }
 }
