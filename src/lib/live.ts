@@ -1,4 +1,4 @@
-import { ArchiveClient, NO_CATEGORY, normalizeVod, vodThumbnail, watchPath, type RawChapter, type RawVod } from '@vexoulz/vods-core'
+import { ArchiveClient, NO_CATEGORY, boxArt, normalizeVod, vodThumbnail, watchPath, type RawChapter, type RawVod } from '@vexoulz/vods-core'
 import { ARCHIVE_API, TWITCH_CHANNEL, TWITCH_URL, VODS_URL } from './config'
 
 export interface CardGame {
@@ -34,20 +34,13 @@ interface Status {
 
 const archive = new ArchiveClient({ apiBase: ARCHIVE_API })
 
-/** Box art at a size that stays sharp as a poster: from Twitch's `{width}x{height}` template, or by replacing the
- *  small size baked into older URLs (`…-40x53.jpg`). */
-function boxArt(c: GameRef | null | undefined): string | undefined {
-  if (c?.imageTemplate) return c.imageTemplate.replace('{width}x{height}', '144x192')
-  return c?.image?.replace(/-\d+x\d+(\.\w+)$/, '-144x192$1')
-}
-
 /** Distinct games in play order (a game played twice shows once, where it was last played). */
 function gamesOf(chapters: readonly GameRef[]): CardGame[] {
   const games = new Map<string, CardGame>()
   for (const c of chapters) {
     const name = c.name?.trim() || NO_CATEGORY
     games.delete(name)
-    games.set(name, { name, image: boxArt(c) })
+    games.set(name, { name, image: boxArt(c.imageTemplate ?? c.image) ?? undefined })
   }
   return [...games.values()]
 }
