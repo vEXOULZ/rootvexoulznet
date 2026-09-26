@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VxAccountMenu, VxSiteShell } from '@vexoulz/ui'
 import LinkList from '@/components/LinkList.vue'
-import type { LinkGroup } from '@/lib/links'
+import { TWITCH_LINK, VODS_LINK, type LinkGroup } from '@/lib/links'
 
 const groups: LinkGroup[] = [
   {
@@ -10,10 +10,7 @@ const groups: LinkGroup[] = [
   },
   {
     title: 'External',
-    links: [
-      { name: 'Twitch', handle: 'ttv/vexoulz', href: 'https://twitch.tv/vexoulz' },
-      { name: 'Vods', handle: 'vods.vexoulz.net', href: 'https://vods.vexoulz.net', site: 'vods' },
-    ],
+    links: [TWITCH_LINK, VODS_LINK],
   },
 ]
 </script>

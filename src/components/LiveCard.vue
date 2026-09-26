@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Stream card: the live stream (links to Twitch) or, when offline, the latest VOD (links to it on vods.vexoulz.net),
 // in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and stays hidden if
-// the archive API can't be reached.
+// the archive API can't be reached. Polls only while the tab is visible; the live clock ticks only while live.
 import { VxButton, VxChip, VxPlaceholder, VxPosters, VxStatusDot, formatDuration } from '@vexoulz/ui'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { VODS_URL } from '@/lib/config'
@@ -25,16 +25,33 @@ async function refresh() {
   }
 }
 
-onMounted(() => {
+function onVisibility() {
+  clearInterval(poll)
+  if (document.hidden) return
   refresh()
   poll = setInterval(refresh, REFRESH_MS)
-  tick = setInterval(() => (now.value = Date.now()), 1000)
+}
+
+onMounted(() => {
+  onVisibility()
+  document.addEventListener('visibilitychange', onVisibility)
 })
 onUnmounted(() => {
   ctrl?.abort()
   clearInterval(poll)
   clearInterval(tick)
+  document.removeEventListener('visibilitychange', onVisibility)
 })
+
+watch(
+  () => card.value?.live,
+  (live) => {
+    clearInterval(tick)
+    if (!live) return
+    now.value = Date.now()
+    tick = setInterval(() => (now.value = Date.now()), 1000)
+  },
+)
 
 const broken = ref(false)
 watch(() => card.value?.image, () => (broken.value = false))

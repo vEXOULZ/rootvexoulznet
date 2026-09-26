@@ -1,4 +1,4 @@
-import { normalizeVod, vodThumbnail, watchPath, type RawVod } from '@vexoulz/vods-core'
+import { ArchiveClient, NO_CATEGORY, normalizeVod, vodThumbnail, watchPath, type RawChapter, type RawVod } from '@vexoulz/vods-core'
 import { ARCHIVE_API, TWITCH_CHANNEL, TWITCH_URL, VODS_URL } from './config'
 
 export interface CardGame {
@@ -23,54 +23,39 @@ export interface StreamCard {
   duration?: number
 }
 
-interface RawChapter {
-  name?: string | null
-  image?: string | null
-  imageTemplate?: string | null
-}
-interface VodRow {
-  id: string
-  title: string | null
-  createdAt: string
-  duration: string | null
-  duration_seconds?: number | null
-  thumbnail_url: string | null
-  chapters: RawChapter[] | null
-  youtube: { type?: string; part?: number; thumbnail_url?: string | null }[] | null
-}
+type GameRef = Pick<RawChapter, 'name' | 'image' | 'imageTemplate'>
+
 /** `/v1/status`: the live stream, and its VOD row (live) or the latest VOD (offline). */
 interface Status {
   live: boolean
-  stream: { id: string; started_at: string | null; title?: string | null; game?: RawChapter | null } | null
-  vod: VodRow | null
+  stream: { id: string; started_at: string | null; title?: string | null; game?: GameRef | null } | null
+  vod: RawVod | null
 }
+
+const archive = new ArchiveClient({ apiBase: ARCHIVE_API })
 
 /** Box art at a size that stays sharp as a poster: from Twitch's `{width}x{height}` template, or by replacing the
  *  small size baked into older URLs (`…-40x53.jpg`). */
-function boxArt(c: RawChapter | null | undefined): string | undefined {
+function boxArt(c: GameRef | null | undefined): string | undefined {
   if (c?.imageTemplate) return c.imageTemplate.replace('{width}x{height}', '144x192')
   return c?.image?.replace(/-\d+x\d+(\.\w+)$/, '-144x192$1')
 }
 
 /** Distinct games in play order (a game played twice shows once, where it was last played). */
-function gamesOf(chapters: readonly RawChapter[]): CardGame[] {
+function gamesOf(chapters: readonly GameRef[]): CardGame[] {
   const games = new Map<string, CardGame>()
   for (const c of chapters) {
-    const name = c.name?.trim() || 'No category'
+    const name = c.name?.trim() || NO_CATEGORY
     games.delete(name)
     games.set(name, { name, image: boxArt(c) })
   }
   return [...games.values()]
 }
 
-const seconds = (hms: string | null) => (hms ?? '').split(':').reduce((t, n) => t * 60 + (Number(n) || 0), 0)
-
 /** The live stream, or the latest VOD when offline: one `/v1/status` call. The Twitch preview changes every
  *  refresh, so its URL carries the current minute. */
 export async function fetchStreamCard(signal?: AbortSignal): Promise<StreamCard> {
-  const res = await fetch(`${ARCHIVE_API}/v1/status`, { signal, headers: { accept: 'application/json' } })
-  if (!res.ok) throw new Error(`/v1/status: HTTP ${res.status}`)
-  const { live, stream, vod } = (await res.json()) as Status
+  const { live, stream, vod } = await archive.get<Status>('/v1/status', signal)
 
   if (live) {
     // The stream's own game goes last: it's the freshest (the VOD's chapters can lag behind a category change).
@@ -86,15 +71,15 @@ export async function fetchStreamCard(signal?: AbortSignal): Promise<StreamCard>
   }
 
   if (!vod) return { live: false, games: [], href: VODS_URL }
-  const shared = normalizeVod(vod as unknown as RawVod)
+  const shared = normalizeVod(vod)
   return {
     live: false,
     title: vod.title ?? undefined,
     games: gamesOf(vod.chapters ?? []),
-    // The thumbnail and link come from vods-core, so they match what vods.vexoulz.net shows for this VOD.
+    // The thumbnail, link and length come from vods-core, so they match what vods.vexoulz.net shows for this VOD.
     image: vodThumbnail(shared) ?? undefined,
     href: `${VODS_URL}${watchPath(shared)}`,
     date: new Date(vod.createdAt),
-    duration: vod.duration_seconds ?? (seconds(vod.duration) || undefined),
+    duration: shared.duration || undefined,
   }
 }
