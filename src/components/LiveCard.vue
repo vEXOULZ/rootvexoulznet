@@ -87,7 +87,7 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
       </div>
     </a>
     <div class="actions">
-      <VxButton :href="VODS_URL" size="sm">Watch past streams →</VxButton>
+      <VxButton :href="VODS_URL" size="sm" block>Watch past streams →</VxButton>
     </div>
   </article>
 </template>
@@ -110,5 +110,4 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
 .title { font-weight: 600; line-height: 1.3; color: var(--vx-ink); overflow-wrap: anywhere; }
 .meta { display: flex; align-items: center; gap: 10px; font-size: 12px; }
 .actions { display: flex; padding: 8px 12px 12px; }
-.actions :deep(.vx-btn) { width: 100%; justify-content: center; }
 </style>

@@ -1,6 +1,5 @@
 import '@vexoulz/ui/fonts.css'
 import '@vexoulz/ui/style.css'
-import './styles.css'
 
 import { VxBuild } from '@vexoulz/ui'
 import { createApp } from 'vue'

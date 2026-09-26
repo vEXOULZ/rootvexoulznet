@@ -39,13 +39,14 @@ function run() {
   }
 }
 
-// The site styles paint the page black; a browser source needs it see-through.
+// A browser source needs a bare, see-through page (the library paints it black under a site shell).
 const saved = { html: '', body: '' }
 onMounted(() => {
   saved.html = document.documentElement.style.cssText
   saved.body = document.body.style.cssText
   document.documentElement.style.background = 'transparent'
   document.body.style.background = 'transparent'
+  document.body.style.margin = '0'
   document.body.style.overflow = 'hidden'
   run()
   timer = setInterval(run, 500)
