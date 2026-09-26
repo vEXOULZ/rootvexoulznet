@@ -1,4 +1,5 @@
-import type { SiteId } from '@vexoulz/ui'
+import { siteInfo, type SiteId } from '@vexoulz/ui'
+import { TWITCH_CHANNEL, TWITCH_URL } from './config'
 
 export interface SiteLink {
   name: string
@@ -13,12 +14,18 @@ export interface LinkGroup {
   links: SiteLink[]
 }
 
+const vods = siteInfo('vods')
+const shop = siteInfo('shop')
+
+export const TWITCH_LINK: SiteLink = { name: 'Twitch', handle: `ttv/${TWITCH_CHANNEL}`, href: TWITCH_URL }
+export const VODS_LINK: SiteLink = { name: 'Vods', handle: vods.host, href: vods.href, site: 'vods' }
+
 export const LINK_GROUPS: LinkGroup[] = [
   {
     title: 'Stream',
     links: [
-      { name: 'Twitch', handle: 'ttv/vexoulz', href: 'https://twitch.tv/vexoulz' },
-      { name: 'Vods', handle: 'vods.vexoulz.net', href: 'https://vods.vexoulz.net', site: 'vods' },
+      TWITCH_LINK,
+      VODS_LINK,
       { name: 'TikTok', handle: 'tiktok/@vexoulz', href: 'https://tiktok.com/@vexoulz' },
       { name: 'YouTube', handle: 'yt/@vexoulz', href: 'https://youtube.com/@vEXOULZ' },
     ],
@@ -38,7 +45,7 @@ export const LINK_GROUPS: LinkGroup[] = [
   {
     title: 'Money',
     links: [
-      { name: 'Merch shop', handle: 'shop.vexoulz.net', href: 'https://shop.vexoulz.net' },
+      { name: 'Merch shop', handle: shop.host, href: shop.href },
       { name: 'Throne', handle: 'throne/vexoulz', href: 'https://throne.com/vexoulz' },
     ],
   },
