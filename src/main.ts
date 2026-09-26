@@ -2,6 +2,7 @@ import '@vexoulz/ui/fonts.css'
 import '@vexoulz/ui/style.css'
 import './styles.css'
 
+import { VxBuild } from '@vexoulz/ui'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -18,4 +19,4 @@ const router = createRouter({
   ],
 })
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(VxBuild, { commit: __COMMIT__ }).mount('#app')
