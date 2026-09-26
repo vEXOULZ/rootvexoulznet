@@ -1,3 +1,4 @@
+import { normalizeVod, vodThumbnail, watchPath, type RawVod } from '@vexoulz/vods-core'
 import { ARCHIVE_API, TWITCH_CHANNEL, TWITCH_URL, VODS_URL } from './config'
 
 export interface CardGame {
@@ -11,7 +12,7 @@ export interface StreamCard {
   title?: string
   /** Games in the order played; when live, the last one is being played now. */
   games: CardGame[]
-  /** Live: Twitch's stream preview. Offline: the VOD's YouTube thumbnail, when it has been uploaded. */
+  /** Live: Twitch's stream preview. Offline: the same thumbnail vods.vexoulz.net shows for the VOD. */
   image?: string
   /** Where the card itself leads: Twitch when live, the VOD on vods.vexoulz.net otherwise. */
   href: string
@@ -64,18 +65,6 @@ function gamesOf(chapters: readonly RawChapter[]): CardGame[] {
 
 const seconds = (hms: string | null) => (hms ?? '').split(':').reduce((t, n) => t * 60 + (Number(n) || 0), 0)
 
-/** Same choice as the vods site: VOD uploads, then the live upload, else let it pick. */
-function watchUrl(vod: VodRow): string {
-  const types = new Set((vod.youtube ?? []).map((u) => u.type))
-  const route = types.has('vod') ? 'vods' : types.has('live') ? 'live' : 'youtube'
-  return `${VODS_URL}/${route}/${encodeURIComponent(vod.id)}`
-}
-
-function thumbnailOf(vod: VodRow): string | undefined {
-  const first = [...(vod.youtube ?? [])].sort((a, b) => (a.part ?? 0) - (b.part ?? 0))[0]
-  return first?.thumbnail_url ?? vod.thumbnail_url ?? undefined
-}
-
 /** The live stream, or the latest VOD when offline: one `/v1/status` call. The Twitch preview changes every
  *  refresh, so its URL carries the current minute. */
 export async function fetchStreamCard(signal?: AbortSignal): Promise<StreamCard> {
@@ -97,12 +86,14 @@ export async function fetchStreamCard(signal?: AbortSignal): Promise<StreamCard>
   }
 
   if (!vod) return { live: false, games: [], href: VODS_URL }
+  const shared = normalizeVod(vod as unknown as RawVod)
   return {
     live: false,
     title: vod.title ?? undefined,
     games: gamesOf(vod.chapters ?? []),
-    image: thumbnailOf(vod),
-    href: watchUrl(vod),
+    // The thumbnail and link come from vods-core, so they match what vods.vexoulz.net shows for this VOD.
+    image: vodThumbnail(shared) ?? undefined,
+    href: `${VODS_URL}${watchPath(shared)}`,
     date: new Date(vod.createdAt),
     duration: vod.duration_seconds ?? (seconds(vod.duration) || undefined),
   }
