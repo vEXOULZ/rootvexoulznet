@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { VxAccountMenu, VxButton, VxEmptyState, VxSiteShell } from '@vexoulz/ui'
+import { VxButton, VxEmptyState, VxSiteShell } from '@vexoulz/ui'
+import AccountMenu from '@/components/AccountMenu.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -7,7 +8,7 @@ const route = useRoute()
 
 <template>
   <VxSiteShell site="root">
-    <template #account><VxAccountMenu disabled /></template>
+    <template #account><AccountMenu /></template>
     <VxEmptyState code="404" title="Not found">
       Nothing lives at <span class="vx-mono">{{ route.path }}</span>. It was probably never real.
       <template #actions>

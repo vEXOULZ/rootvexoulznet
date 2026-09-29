@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { VxAccountMenu, VxPlaceholder, VxSiteShell } from '@vexoulz/ui'
+import { VxPlaceholder, VxSiteShell } from '@vexoulz/ui'
+import AccountMenu from '@/components/AccountMenu.vue'
 import LinkList from '@/components/LinkList.vue'
 import LiveCard from '@/components/LiveCard.vue'
 import { LINK_GROUPS } from '@/lib/links'
@@ -7,7 +8,7 @@ import { LINK_GROUPS } from '@/lib/links'
 
 <template>
   <VxSiteShell site="root">
-    <template #account><VxAccountMenu disabled /></template>
+    <template #account><AccountMenu /></template>
     <div class="root">
       <section class="intro">
         <VxPlaceholder label="logo 213×75" :w="213" :h="75" />
