@@ -2,14 +2,20 @@
 // Stream card: the live stream (links to Twitch) or, when offline, the latest VOD (links to it on vods.vexoulz.net),
 // in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and stays hidden if
 // the archive API can't be reached. Polls only while the tab is visible; the live clock ticks only while live.
+// Offline, it also shows the next slot on the Twitch schedule (left out if there's none or Twitch can't be reached).
 import { VxButton, VxChip, VxPlaceholder, VxPosters, VxStatusDot, formatDuration } from '@vexoulz/ui'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { VODS_URL } from '@/lib/config'
+import { SCHEDULE_URL, VODS_URL } from '@/lib/config'
 import { fetchStreamCard, type StreamCard } from '@/lib/live'
+import { fetchNextStream, type ScheduledStream } from '@/lib/schedule'
 
 const REFRESH_MS = 60_000
+/** Twitch's feed says it changes at most every few hours; a new slot shows within this. */
+const SCHEDULE_MS = 15 * 60_000
 
 const card = ref<StreamCard | null>(null)
+const scheduled = ref<ScheduledStream | null>(null)
+let scheduledAt = 0
 const now = ref(Date.now())
 let ctrl: AbortController | undefined
 let poll: ReturnType<typeof setInterval> | undefined
@@ -22,6 +28,18 @@ async function refresh() {
     card.value = await fetchStreamCard(ctrl.signal)
   } catch (e) {
     if ((e as Error).name !== 'AbortError') card.value = null
+  }
+  now.value = Date.now()
+  if (card.value && !card.value.live && now.value - scheduledAt > SCHEDULE_MS) refreshSchedule(ctrl.signal)
+}
+
+async function refreshSchedule(signal: AbortSignal) {
+  scheduledAt = Date.now()
+  try {
+    scheduled.value = await fetchNextStream(signal)
+  } catch (e) {
+    if ((e as Error).name !== 'AbortError') scheduled.value = null
+    else scheduledAt = 0
   }
 }
 
@@ -66,6 +84,27 @@ const meta = computed(() => {
   const date = c.date?.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
   return [date, c.duration && formatDuration(c.duration)].filter(Boolean).join(' · ')
 })
+// The next slot, until it ends. Local time, with the year only when it isn't this year's.
+const next = computed(() => {
+  const s = scheduled.value
+  if (!s || card.value?.live || (s.end ?? s.start).getTime() <= now.value) return null
+  const sameYear = s.start.getFullYear() === new Date(now.value).getFullYear()
+  const when = s.start.toLocaleString(undefined, {
+    weekday: 'short', day: 'numeric', month: 'short', year: sameYear ? undefined : 'numeric', hour: '2-digit', minute: '2-digit',
+  })
+  return { title: s.title, when, rel: relative(s.start.getTime() - now.value), iso: s.start.toISOString() }
+})
+
+function relative(ms: number): string {
+  if (ms <= 0) return 'now'
+  const rtf = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' })
+  const min = Math.round(ms / 60_000)
+  if (min < 60) return rtf.format(min, 'minute')
+  const h = Math.round(min / 60)
+  if (h < 36) return rtf.format(h, 'hour')
+  return rtf.format(Math.round(h / 24), 'day')
+}
+
 const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on Twitch' : 'Latest stream'))
 </script>
 
@@ -85,6 +124,11 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
           <span class="vx-mono vx-muted vx-tabular">{{ meta }}</span>
         </div>
       </div>
+    </a>
+    <a v-if="next" :href="SCHEDULE_URL" rel="noopener" class="next" :aria-label="`Next stream ${next.when}${next.title ? ': ' + next.title : ''}`">
+      <span class="next-label vx-mono">Next stream</span>
+      <span class="next-when vx-tabular"><time :datetime="next.iso">{{ next.when }}</time> <span class="vx-muted">· {{ next.rel }}</span></span>
+      <span v-if="next.title" class="next-title">{{ next.title }}</span>
     </a>
     <div class="actions">
       <VxButton :href="VODS_URL" size="sm" block>Watch past streams →</VxButton>
@@ -109,5 +153,14 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
 .info { padding: 10px 12px 4px; display: flex; flex-direction: column; gap: 6px; text-align: left; }
 .title { font-weight: 600; line-height: 1.3; color: var(--vx-ink); overflow-wrap: anywhere; }
 .meta { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.next {
+  display: flex; flex-direction: column; gap: 2px; margin: 6px 12px 0; padding: 8px 10px; text-align: left;
+  color: inherit; text-decoration: none; font-size: 12px;
+  border: 1px solid var(--vx-line); border-radius: var(--vx-radius-sm); background: var(--vx-surface);
+}
+.next:hover, .next:focus-visible { border-color: var(--vx-accent); }
+.next-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vx-accent); }
+.next-when { color: var(--vx-ink); }
+.next-title { color: var(--vx-muted); overflow-wrap: anywhere; }
 .actions { display: flex; padding: 8px 12px 12px; }
 </style>
