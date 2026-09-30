@@ -31,6 +31,17 @@ export const LINK_GROUPS: LinkGroup[] = [
     ],
   },
   {
+    title: 'Community',
+    links: [
+      { name: 'Discord Server', handle: 'vEXcord', href: 'https://discord.vexoulz.net' },
+      {
+        name: 'Offline Chat',
+        handle: `ttv/${TWITCH_CHANNEL}`,
+        href: `https://www.twitch.tv/popout/${TWITCH_CHANNEL}/chat?popout=`,
+      },
+    ],
+  },
+  {
     title: 'Dev',
     links: [{ name: 'GitHub', handle: 'github/vEXOULZ', href: 'https://github.com/vEXOULZ' }],
   },
@@ -38,7 +49,6 @@ export const LINK_GROUPS: LinkGroup[] = [
     title: 'Socials',
     links: [
       { name: 'Bluesky', handle: '@vexoulz.net', href: 'https://bsky.app/profile/vexoulz.net' },
-      { name: 'Discord', handle: 'vEXcord server', href: 'https://discord.vexoulz.net' },
       { name: 'Steam', handle: 'steam/vexoulz', href: 'https://steamcommunity.com/id/vexoulz/' },
     ],
   },
