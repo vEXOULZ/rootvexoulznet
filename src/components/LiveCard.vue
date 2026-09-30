@@ -126,7 +126,7 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
       </div>
     </a>
     <a v-if="next" :href="SCHEDULE_URL" rel="noopener" class="next" :aria-label="`Next stream ${next.when}${next.title ? ': ' + next.title : ''} (${next.game.name})`">
-      <VxPosters :games="[next.game]" mode="stack" :size="30" />
+      <VxPosters :games="[next.game]" mode="stack" :size="45" />
       <span class="next-text">
         <span class="next-label vx-mono">Next stream</span>
         <span class="next-when vx-tabular"><time :datetime="next.iso">{{ next.when }}</time> <span class="vx-muted">· {{ next.rel }}</span></span>
