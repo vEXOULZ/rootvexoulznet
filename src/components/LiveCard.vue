@@ -92,7 +92,7 @@ const next = computed(() => {
   const when = s.start.toLocaleString(undefined, {
     weekday: 'short', day: 'numeric', month: 'short', year: sameYear ? undefined : 'numeric', hour: '2-digit', minute: '2-digit',
   })
-  return { title: s.title, when, rel: relative(s.start.getTime() - now.value), iso: s.start.toISOString() }
+  return { title: s.title, game: s.game, when, rel: relative(s.start.getTime() - now.value), iso: s.start.toISOString() }
 })
 
 function relative(ms: number): string {
@@ -125,10 +125,14 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
         </div>
       </div>
     </a>
-    <a v-if="next" :href="SCHEDULE_URL" rel="noopener" class="next" :aria-label="`Next stream ${next.when}${next.title ? ': ' + next.title : ''}`">
-      <span class="next-label vx-mono">Next stream</span>
-      <span class="next-when vx-tabular"><time :datetime="next.iso">{{ next.when }}</time> <span class="vx-muted">· {{ next.rel }}</span></span>
-      <span v-if="next.title" class="next-title">{{ next.title }}</span>
+    <a v-if="next" :href="SCHEDULE_URL" rel="noopener" class="next" :aria-label="`Next stream ${next.when}${next.title ? ': ' + next.title : ''} (${next.game.name})`">
+      <VxPosters :games="[next.game]" mode="stack" :size="30" />
+      <span class="next-text">
+        <span class="next-label vx-mono">Next stream</span>
+        <span class="next-when vx-tabular"><time :datetime="next.iso">{{ next.when }}</time> <span class="vx-muted">· {{ next.rel }}</span></span>
+        <span v-if="next.title" class="next-title">{{ next.title }}</span>
+        <span class="next-game vx-mono vx-muted">{{ next.game.name }}</span>
+      </span>
     </a>
     <div class="actions">
       <VxButton :href="VODS_URL" size="sm" block>Watch past streams →</VxButton>
@@ -154,13 +158,15 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
 .title { font-weight: 600; line-height: 1.3; color: var(--vx-ink); overflow-wrap: anywhere; }
 .meta { display: flex; align-items: center; gap: 10px; font-size: 12px; }
 .next {
-  display: flex; flex-direction: column; gap: 2px; margin: 6px 12px 0; padding: 8px 10px; text-align: left;
+  display: flex; align-items: flex-start; gap: 10px; margin: 6px 12px 0; padding: 8px 10px; text-align: left;
   color: inherit; text-decoration: none; font-size: 12px;
   border: 1px solid var(--vx-line); border-radius: var(--vx-radius-sm); background: var(--vx-surface);
 }
 .next:hover, .next:focus-visible { border-color: var(--vx-accent); }
+.next-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .next-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vx-accent); }
 .next-when { color: var(--vx-ink); }
 .next-title { color: var(--vx-muted); overflow-wrap: anywhere; }
+.next-game { font-size: 11px; overflow-wrap: anywhere; }
 .actions { display: flex; padding: 8px 12px 12px; }
 </style>

@@ -1,10 +1,14 @@
+import { NO_CATEGORY, boxArt } from '@vexoulz/vods-core'
 import { TWITCH_ID } from './config'
+import type { CardGame } from './live'
 
 /** One upcoming slot from the channel's Twitch schedule. */
 export interface ScheduledStream {
   start: Date
   end?: Date
   title?: string
+  /** The slot's category; "No category" when none is set, like a VOD chapter without one. */
+  game: CardGame
 }
 
 /** Twitch's public iCalendar feed of the channel schedule: no auth, and CORS-open. */
@@ -64,7 +68,8 @@ function next(ev: Map<string, Prop[]>, now: number): ScheduledStream | null {
   const dtend = ev.get('DTEND')?.[0]
   const endWall = dtend && parseWall(dtend.value)
   const length = endWall ? toUtc(endWall, zone(dtend)) - first : 0
-  const title = ev.get('SUMMARY')?.[0]?.value.replace(/\\([,;\\])/g, '$1').replace(/\\n/gi, ' ').trim() || undefined
+  const title = text(ev.get('SUMMARY')?.[0]?.value) || undefined
+  const game = category(text(ev.get('CATEGORIES')?.[0]?.value))
 
   const excluded = new Set(
     (ev.get('EXDATE') ?? []).flatMap((p) => p.value.split(',').map((v) => {
@@ -87,9 +92,21 @@ function next(ev: Map<string, Prop[]>, now: number): ScheduledStream | null {
     const start = toUtc([d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), wall[3], wall[4], wall[5]], tz)
     if (start > until || start > now + HORIZON_MS) break
     if (start + length <= now || excluded.has(start)) continue
-    return { start: new Date(start), end: length ? new Date(start + length) : undefined, title }
+    return { start: new Date(start), end: length ? new Date(start + length) : undefined, title, game }
   }
   return null
+}
+
+/** An iCalendar TEXT value, unescaped. */
+function text(v?: string): string {
+  return (v ?? '').replace(/\\([,;\\])/g, '$1').replace(/\\n/gi, ' ').trim()
+}
+
+/** The feed names the category but carries no art; Twitch serves box art by name too (an unknown name gets its
+ *  generic "404" poster). */
+function category(name: string): CardGame {
+  if (!name) return { name: NO_CATEGORY }
+  return { name, image: boxArt(`https://static-cdn.jtvnw.net/ttv-boxart/${encodeURIComponent(name)}-{width}x{height}.jpg`) ?? undefined }
 }
 
 /** The time zone a DTSTART/DTEND is in: its TZID (Twitch writes "/Area/City"), UTC for a trailing Z. */
