@@ -4,5 +4,8 @@ import { siteInfo } from '@vexoulz/ui'
 export const ARCHIVE_API = (import.meta.env.VITE_ARCHIVE_API ?? 'https://vods.vexoulz.net/backend').replace(/\/$/, '')
 
 export const TWITCH_CHANNEL = 'vexoulz'
+/** The channel's numeric Twitch id (the schedule feed takes the id, not the login). */
+export const TWITCH_ID = '38656648'
 export const TWITCH_URL = `https://twitch.tv/${TWITCH_CHANNEL}`
+export const SCHEDULE_URL = `${TWITCH_URL}/schedule`
 export const VODS_URL = siteInfo('vods').href
