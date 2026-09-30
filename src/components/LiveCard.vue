@@ -141,7 +141,7 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
 </template>
 
 <style scoped>
-.card { display: flex; flex-direction: column; overflow: hidden; width: 100%; max-width: 360px; }
+.card { display: flex; flex-direction: column; overflow: hidden; width: 100%; max-width: 540px; }
 .card:has(.main:hover) { border-color: var(--vx-accent); }
 .card.is-live:has(.main:hover) { border-color: var(--vx-bad); }
 .main { display: flex; flex-direction: column; color: inherit; text-decoration: none; }

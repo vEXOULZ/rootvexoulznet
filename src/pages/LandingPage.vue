@@ -28,7 +28,7 @@ import { LINK_GROUPS } from '@/lib/links'
 </template>
 
 <style scoped>
-.root { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 40px; align-items: start; }
+.root { display: grid; grid-template-columns: minmax(0, 540px) minmax(0, 1fr); gap: 40px; align-items: start; }
 .intro { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
 .intro h1 { font-size: 34px; margin-top: 8px; }
 .intro p { margin: 0; line-height: 1.6; }
