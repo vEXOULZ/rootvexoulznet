@@ -23,7 +23,7 @@ export const TWITCH_LINK: SiteLink = { name: 'Twitch', handle: `ttv/${TWITCH_CHA
 export const VODS_LINK: SiteLink = { name: 'Vods', handle: vods.host, href: vods.href, site: 'vods' }
 export const STATUS_LINK: SiteLink = { name: 'Status', handle: status.host, href: status.href, site: 'status' }
 export const DTP_LINK: SiteLink = { name: 'DoomTP Bot', handle: dtp.host, href: dtp.href, site: 'dtp' }
-export const SHOP_LINK: SiteLink = { name: 'Shop', handle: shop.host, href: shop.href, site: 'shop' }
+export const SHOP_LINK: SiteLink = { name: 'Shop', handle: shop.host, href: shop.href }
 
 export const LINK_GROUPS: LinkGroup[] = [
   {
