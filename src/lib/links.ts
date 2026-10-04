@@ -16,9 +16,14 @@ export interface LinkGroup {
 
 const vods = siteInfo('vods')
 const shop = siteInfo('shop')
+const status = siteInfo('status')
+const dtp = siteInfo('dtp')
 
 export const TWITCH_LINK: SiteLink = { name: 'Twitch', handle: `ttv/${TWITCH_CHANNEL}`, href: TWITCH_URL }
 export const VODS_LINK: SiteLink = { name: 'Vods', handle: vods.host, href: vods.href, site: 'vods' }
+export const STATUS_LINK: SiteLink = { name: 'Status', handle: status.host, href: status.href, site: 'status' }
+export const DTP_LINK: SiteLink = { name: 'DoomTP Bot', handle: dtp.host, href: dtp.href, site: 'dtp' }
+export const SHOP_LINK: SiteLink = { name: 'Shop', handle: shop.host, href: shop.href }
 
 export const LINK_GROUPS: LinkGroup[] = [
   {
@@ -43,19 +48,24 @@ export const LINK_GROUPS: LinkGroup[] = [
   },
   {
     title: 'Dev',
-    links: [{ name: 'GitHub', handle: 'github/vEXOULZ', href: 'https://github.com/vEXOULZ' }],
+    links: [
+      { name: 'GitHub', handle: 'github/vEXOULZ', href: 'https://github.com/vEXOULZ' },
+      STATUS_LINK,
+      DTP_LINK,
+    ],
   },
   {
     title: 'Socials',
     links: [
       { name: 'Bluesky', handle: '@vexoulz.net', href: 'https://bsky.app/profile/vexoulz.net' },
+      { name: 'Twitter', handle: '@vexoulsad', href: 'https://x.com/vexoulsad' },
       { name: 'Steam', handle: 'steam/vexoulz', href: 'https://steamcommunity.com/id/vexoulz/' },
     ],
   },
   {
     title: 'Money',
     links: [
-      { name: 'Merch shop', handle: shop.host, href: shop.href },
+      SHOP_LINK,
       { name: 'Throne', handle: 'throne/vexoulz', href: 'https://throne.com/vexoulz' },
     ],
   },
