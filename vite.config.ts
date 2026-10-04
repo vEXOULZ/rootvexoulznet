@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { execSync } from 'node:child_process'
 import { fileURLToPath, URL } from 'node:url'
 
@@ -16,6 +17,7 @@ function commit(): string {
 export default defineConfig({
   define: { __COMMIT__: JSON.stringify(commit()) },
   plugins: [vue()],
+  test: { include: ['tests/**/*.test.ts'] },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
