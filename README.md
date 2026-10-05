@@ -1,4 +1,4 @@
-# vexoulz.net
+# vexoul.net
 
 The root site: links, socials, stream status and the OBS browser sources. Vue 3 + TypeScript on the shared
 [`@vexoulz/ui`](https://github.com/vEXOULZ/vexoulz-ui) design ("Deep Field").
@@ -28,7 +28,7 @@ Logos and images are placeholders (`VxPlaceholder`) until real assets exist.
 ## Config
 
 `VITE_ARCHIVE_API` sets the archive API base URL (see `.env.example`). It defaults to the public one that
-vods.vexoulz.net uses.
+vods.vexoul.net uses.
 
 ## Publishing
 
