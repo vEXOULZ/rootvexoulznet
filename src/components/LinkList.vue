@@ -13,7 +13,7 @@ defineProps<{ groups: LinkGroup[] }>()
         <span class="icon vx-ring"><VxPlaceholder :label="l.name.slice(0, 2).toLowerCase()" :w="40" :h="40" /></span>
         <span class="text">
           <span class="name">{{ l.name }}</span>
-          <span class="handle" :class="l.site && `vx-accent-${l.site}`">{{ l.handle }}</span>
+          <span class="handle" :style="l.site && { color: `var(--vx-accent-${l.site})` }">{{ l.handle }}</span>
         </span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
@@ -30,9 +30,8 @@ defineProps<{ groups: LinkGroup[] }>()
 .icon { border-radius: var(--vx-radius-sm); display: block; flex: none; }
 .text { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.3; }
 .name { color: var(--vx-ink); font-weight: 600; }
+/* A site's handle takes its accent, set inline from l.site so a new site needs no rule here. */
 .handle { font-size: 12px; color: var(--vx-muted); font-family: var(--vx-font-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.handle.vx-accent-vods { color: var(--vx-accent-vods); }
-.handle.vx-accent-dtp { color: var(--vx-accent-dtp); }
 .arrow { color: var(--vx-muted); opacity: 0; transition: opacity 0.15s; font-family: var(--vx-font-mono); }
 .link:hover .arrow, .link:focus-visible .arrow { opacity: 1; }
 @container vx-site (max-width: 700px) {
