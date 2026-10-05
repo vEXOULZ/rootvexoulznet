@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Stream card: the live stream (links to Twitch) or, when offline, the latest VOD (links to it on vods.vexoulz.net),
+// Stream card: the live stream (links to Twitch) or, when offline, the latest VOD (links to it on vods.vexoul.net),
 // in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and stays hidden if
 // the archive API can't be reached. Polls only while the tab is visible; the live clock ticks only while live.
 // Offline, it also shows the next slot on the Twitch schedule (left out if there's none or Twitch can't be reached).

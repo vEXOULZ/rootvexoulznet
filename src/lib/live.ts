@@ -12,9 +12,9 @@ export interface StreamCard {
   title?: string
   /** Games in the order played; when live, the last one is being played now. */
   games: CardGame[]
-  /** Live: Twitch's stream preview. Offline: the same thumbnail vods.vexoulz.net shows for the VOD. */
+  /** Live: Twitch's stream preview. Offline: the same thumbnail vods.vexoul.net shows for the VOD. */
   image?: string
-  /** Where the card itself leads: Twitch when live, the VOD on vods.vexoulz.net otherwise. */
+  /** Where the card itself leads: Twitch when live, the VOD on vods.vexoul.net otherwise. */
   href: string
   /** Live only. */
   startedAt?: Date
@@ -69,7 +69,7 @@ export async function fetchStreamCard(signal?: AbortSignal): Promise<StreamCard>
     live: false,
     title: vod.title ?? undefined,
     games: gamesOf(vod.chapters ?? []),
-    // The thumbnail, link and length come from vods-core, so they match what vods.vexoulz.net shows for this VOD.
+    // The thumbnail, link and length come from vods-core, so they match what vods.vexoul.net shows for this VOD.
     image: vodThumbnail(shared) ?? undefined,
     href: `${VODS_URL}${watchPath(shared)}`,
     date: new Date(vod.createdAt),

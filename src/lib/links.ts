@@ -5,7 +5,7 @@ export interface SiteLink {
   name: string
   handle: string
   href: string
-  /** A vexoulz.net site: its handle takes that site's accent. */
+  /** A vexoul.net site: its handle takes that site's accent. */
   site?: SiteId
 }
 
