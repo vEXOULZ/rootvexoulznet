@@ -38,7 +38,7 @@ export const LINK_GROUPS: LinkGroup[] = [
   {
     title: 'Community',
     links: [
-      { name: 'Discord Server', handle: 'vEXcord', href: 'https://discord.vexoulz.net' },
+      { name: 'Discord Server', handle: 'vEXcord', href: 'https://discord.vexoul.net' },
       {
         name: 'Offline Chat',
         handle: `ttv/${TWITCH_CHANNEL}`,
