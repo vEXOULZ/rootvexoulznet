@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VxPlaceholder, VxSiteShell } from '@vexoulz/ui'
+import { VxSiteShell } from '@vexoulz/ui'
 import AccountMenu from '@/components/AccountMenu.vue'
 import LinkList from '@/components/LinkList.vue'
 import LiveCard from '@/components/LiveCard.vue'
@@ -11,7 +11,7 @@ import { LINK_GROUPS } from '@/lib/links'
     <template #account><AccountMenu /></template>
     <div class="root">
       <section class="intro">
-        <VxPlaceholder label="logo 213×75" :w="213" :h="75" />
+        <img class="logo" src="/logo.svg" alt="vexoul.net" width="240" height="80" />
         <h1 class="vx-display">Did you nose?</h1>
         <p class="poem vx-muted">
           <span>Vexoulz is not real.</span>
