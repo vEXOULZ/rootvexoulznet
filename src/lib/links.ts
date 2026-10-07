@@ -23,6 +23,8 @@ export const TWITCH_LINK: SiteLink = { name: 'Twitch', handle: `ttv/${TWITCH_CHA
 export const VODS_LINK: SiteLink = { name: 'Vods', handle: vods.host, href: vods.href, site: 'vods' }
 export const STATUS_LINK: SiteLink = { name: 'Status', handle: status.host, href: status.href, site: 'status' }
 export const DTP_LINK: SiteLink = { name: 'DoomTP Bot', handle: dtp.host, href: dtp.href, site: 'dtp' }
+/** Friends' sites on vexoul.net. Plain links until they have an entry (and an accent) in vexoulz-ui's site list. */
+export const KEEKIVODS_LINK: SiteLink = { name: 'keeki_dechu VODs', handle: 'keekivods.vexoul.net', href: 'https://keekivods.vexoul.net' }
 export const SHOP_LINK: SiteLink = { name: 'Shop', handle: shop.host, href: shop.href, site: 'shop' }
 
 export const LINK_GROUPS: LinkGroup[] = [
@@ -68,5 +70,9 @@ export const LINK_GROUPS: LinkGroup[] = [
       SHOP_LINK,
       { name: 'Throne', handle: 'throne/vexoulz', href: 'https://throne.com/vexoulz' },
     ],
+  },
+  {
+    title: 'Friends',
+    links: [KEEKIVODS_LINK],
   },
 ]
