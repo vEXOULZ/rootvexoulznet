@@ -23,7 +23,12 @@ git config core.hooksPath .conventions/githooks   # once per clone: branch-name 
 | `/obs_sources/countdown?h=&m=&s=&text=` | transparent countdown for OBS; no site chrome |
 | anything else | 404 |
 
-Logos and images are placeholders (`VxPlaceholder`) until real assets exist.
+The logo is `public/logo.svg`; each link's icon is `public/links/<icon>.svg`, named by its `icon` in
+[`src/lib/links.ts`](src/lib/links.ts). A link without one shows a `VxPlaceholder`.
+
+## Assets still needed
+
+- An icon for the keeki_dechu VODs link (`KEEKIVODS_LINK`): put it in `public/links/` and set its `icon`.
 
 ## Config
 
