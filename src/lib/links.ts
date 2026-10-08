@@ -18,11 +18,14 @@ const vods = siteInfo('vods')
 const shop = siteInfo('shop')
 const status = siteInfo('status')
 const dtp = siteInfo('dtp')
+const keekivods = siteInfo('keekivods')
 
 export const TWITCH_LINK: SiteLink = { name: 'Twitch', handle: `ttv/${TWITCH_CHANNEL}`, href: TWITCH_URL }
 export const VODS_LINK: SiteLink = { name: 'VODs', handle: vods.host, href: vods.href, site: 'vods' }
 export const STATUS_LINK: SiteLink = { name: 'Status', handle: status.host, href: status.href, site: 'status' }
 export const DTP_LINK: SiteLink = { name: 'DoomTP Bot', handle: dtp.host, href: dtp.href, site: 'dtp' }
+/** Friends' sites on vexoul.net. */
+export const KEEKIVODS_LINK: SiteLink = { name: 'keeki_dechu VODs', handle: keekivods.host, href: keekivods.href, site: 'keekivods' }
 export const SHOP_LINK: SiteLink = { name: 'Shop', handle: shop.host, href: shop.href, site: 'shop' }
 
 export const LINK_GROUPS: LinkGroup[] = [
@@ -68,5 +71,9 @@ export const LINK_GROUPS: LinkGroup[] = [
       SHOP_LINK,
       { name: 'Throne', handle: 'throne/vexoulz', href: 'https://throne.com/vexoulz' },
     ],
+  },
+  {
+    title: 'Friends',
+    links: [KEEKIVODS_LINK],
   },
 ]
