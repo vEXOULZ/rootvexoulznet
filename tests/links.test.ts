@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LINK_GROUPS, TWITCH_LINK, VODS_LINK } from '../src/lib/links'
+import { KEEKIVODS_LINK, LINK_GROUPS, TWITCH_LINK, VODS_LINK } from '../src/lib/links'
 
 describe('LINK_GROUPS', () => {
   const links = LINK_GROUPS.flatMap((g) => g.links)
@@ -18,5 +18,11 @@ describe('LINK_GROUPS', () => {
   it('leads with Twitch and the VODs site', () => {
     expect(LINK_GROUPS[0].links.slice(0, 2)).toEqual([TWITCH_LINK, VODS_LINK])
     expect(VODS_LINK.site).toBe('vods')
+  })
+
+  it('ends with the friends, keekivods among them', () => {
+    const last = LINK_GROUPS[LINK_GROUPS.length - 1]
+    expect(last.title).toBe('Friends')
+    expect(last.links).toContain(KEEKIVODS_LINK)
   })
 })
