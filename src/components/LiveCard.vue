@@ -3,7 +3,7 @@
 // in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and stays hidden if
 // the archive API can't be reached. Polls only while the tab is visible; the live clock ticks only while live.
 // Offline, it also shows the next slot on the Twitch schedule (left out if there's none or Twitch can't be reached).
-import { VxButton, VxChip, VxPlaceholder, VxPosters, VxStatusDot, formatDuration } from '@vexoulz/ui'
+import { VxButton, VxChip, VxNoThumbnail, VxPosters, VxStatusDot, formatDuration } from '@vexoulz/ui'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { SCHEDULE_URL, VODS_URL } from '@/lib/config'
 import { fetchStreamCard, type StreamCard } from '@/lib/live'
@@ -113,7 +113,7 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
     <a :href="card.href" rel="noopener" class="main" :aria-label="`${card.live ? 'Live now' : 'Latest VOD'}: ${title}`">
       <div class="thumb">
         <img v-if="card.image && !broken" :src="card.image" alt="" decoding="async" @error="broken = true" />
-        <VxPlaceholder v-else :label="card.live ? 'live preview' : 'no thumbnail yet'" ratio="16 / 9" />
+        <VxNoThumbnail v-else :label="card.live ? 'live preview' : 'no thumbnail yet'" />
         <VxChip v-if="card.live" live class="badge">LIVE</VxChip>
         <span v-else class="badge offline vx-mono"><VxStatusDot status="off" /> Offline · latest VOD</span>
       </div>

@@ -10,7 +10,8 @@ defineProps<{ groups: LinkGroup[] }>()
     <div v-for="g in groups" :key="g.title" class="group">
       <h2 class="vx-eyebrow">{{ g.title }}</h2>
       <a v-for="l in g.links" :key="l.name" :href="l.href" rel="noopener" class="link">
-        <span class="icon vx-ring"><VxPlaceholder :label="l.name.slice(0, 2).toLowerCase()" :w="40" :h="40" /></span>
+        <img v-if="l.icon" class="icon vx-ring" :src="`/links/${l.icon}.svg`" alt="" width="40" height="40" decoding="async" />
+        <span v-else class="icon vx-ring"><VxPlaceholder :label="l.name.slice(0, 2).toLowerCase()" :w="40" :h="40" /></span>
         <span class="text">
           <span class="name">{{ l.name }}</span>
           <span class="handle" :style="l.site && { color: `var(--vx-accent-${l.site})` }">{{ l.handle }}</span>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VxPlaceholder, VxSiteShell } from '@vexoulz/ui'
+import { VxSiteShell } from '@vexoulz/ui'
 import AccountMenu from '@/components/AccountMenu.vue'
 import LinkList from '@/components/LinkList.vue'
 import LiveCard from '@/components/LiveCard.vue'
@@ -11,7 +11,7 @@ import { LINK_GROUPS } from '@/lib/links'
     <template #account><AccountMenu /></template>
     <div class="root">
       <section class="intro">
-        <VxPlaceholder label="logo 213×75" :w="213" :h="75" />
+        <img class="logo" src="/logo.svg" alt="vexoul.net" width="240" height="80" />
         <h1 class="vx-display">Did you nose?</h1>
         <p class="poem vx-muted">
           <span>Vexoulz is not real.</span>
@@ -30,6 +30,8 @@ import { LINK_GROUPS } from '@/lib/links'
 <style scoped>
 .root { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 40px; align-items: start; }
 .intro { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+/* As wide as the stream card below it. */
+.logo { width: 100%; height: auto; }
 .intro h1 { font-size: 34px; margin-top: 8px; }
 .intro p { margin: 0; line-height: 1.6; }
 /* A poem: one line per span, never re-wrapped into a paragraph. */
