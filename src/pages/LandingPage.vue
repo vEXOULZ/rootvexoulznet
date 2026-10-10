@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { VxSiteShell } from '@vexoulz/ui'
-import AccountMenu from '@/components/AccountMenu.vue'
+import { VxAccount, VxSiteShell } from '@vexoulz/ui'
 import LinkList from '@/components/LinkList.vue'
 import LiveCard from '@/components/LiveCard.vue'
 import { LINK_GROUPS } from '@/lib/links'
@@ -8,7 +7,7 @@ import { LINK_GROUPS } from '@/lib/links'
 
 <template>
   <VxSiteShell site="root">
-    <template #account><AccountMenu /></template>
+    <template #account><VxAccount /></template>
     <div class="root">
       <section class="intro">
         <img class="logo" src="/logo.svg" alt="vexoul.net" width="240" height="80" />

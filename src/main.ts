@@ -2,11 +2,11 @@ import '@vexoulz/ui/fonts.css'
 import '@vexoulz/ui/style.css'
 
 import { VxBuild } from '@vexoulz/ui'
+import { createAccount } from '@vexoulz/ui/account'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import App from './App.vue'
-import { account } from './lib/account'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,4 +19,5 @@ const router = createRouter({
   ],
 })
 
-createApp(App).use(router).use(VxBuild, { commit: __COMMIT__ }).use(account).mount('#app')
+// The shared *.vexoul.net sign-in: auth.vexoul.net, or VITE_AUTH_BASE when set (empty turns sign-in off).
+createApp(App).use(router).use(VxBuild, { commit: __COMMIT__ }).use(createAccount()).mount('#app')

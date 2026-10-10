@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { VxSiteShell } from '@vexoulz/ui'
-import AccountMenu from '@/components/AccountMenu.vue'
+import { VxAccount, VxSiteShell } from '@vexoulz/ui'
 import LinkList from '@/components/LinkList.vue'
 import { TWITCH_LINK, VODS_LINK, type LinkGroup } from '@/lib/links'
 
@@ -18,7 +17,7 @@ const groups: LinkGroup[] = [
 
 <template>
   <VxSiteShell site="root">
-    <template #account><AccountMenu /></template>
+    <template #account><VxAccount /></template>
     <h1 class="vx-display title">OBS sources</h1>
     <p class="vx-muted lead">Browser sources for the stream. Add one to OBS as a browser source with a transparent background.</p>
     <LinkList :groups="groups" />
