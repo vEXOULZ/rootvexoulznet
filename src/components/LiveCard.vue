@@ -1,75 +1,30 @@
 <script setup lang="ts">
 // Stream card: the live stream (links to Twitch) or, when offline, the latest VOD (links to it on vods.vexoul.net),
-// in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and stays hidden if
-// the archive API can't be reached. Polls only while the tab is visible; the live clock ticks only while live.
+// in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and while the archive
+// API can't be reached. Polls only while the tab is visible (usePoll), and the clocks tick once a second (useNow).
 // Offline, it also shows the next slot on the Twitch schedule (left out if there's none or Twitch can't be reached).
 import { VxButton, VxChip, VxNoThumbnail, VxPosters, VxStatusDot, formatDuration } from '@vexoulz/ui'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useNow, usePoll } from '@vexoulz/ui/utils'
+import { computed, ref, watch } from 'vue'
 import { SCHEDULE_URL, VODS_URL } from '@/lib/config'
-import { fetchStreamCard, type StreamCard } from '@/lib/live'
-import { fetchNextStream, type ScheduledStream } from '@/lib/schedule'
+import { fetchStreamCard } from '@/lib/live'
+import { fetchNextStream } from '@/lib/schedule'
 
 const REFRESH_MS = 60_000
 /** Twitch's feed says it changes at most every few hours; a new slot shows within this. */
 const SCHEDULE_MS = 15 * 60_000
 
-const card = ref<StreamCard | null>(null)
-const scheduled = ref<ScheduledStream | null>(null)
-let scheduledAt = 0
-const now = ref(Date.now())
-let ctrl: AbortController | undefined
-let poll: ReturnType<typeof setInterval> | undefined
-let tick: ReturnType<typeof setInterval> | undefined
-
-async function refresh() {
-  ctrl?.abort()
-  ctrl = new AbortController()
-  try {
-    card.value = await fetchStreamCard(ctrl.signal)
-  } catch (e) {
-    if ((e as Error).name !== 'AbortError') card.value = null
-  }
-  now.value = Date.now()
-  if (card.value && !card.value.live && now.value - scheduledAt > SCHEDULE_MS) refreshSchedule(ctrl.signal)
-}
-
-async function refreshSchedule(signal: AbortSignal) {
-  scheduledAt = Date.now()
-  try {
-    scheduled.value = await fetchNextStream(signal)
-  } catch (e) {
-    if ((e as Error).name !== 'AbortError') scheduled.value = null
-    else scheduledAt = 0
-  }
-}
-
-function onVisibility() {
-  clearInterval(poll)
-  if (document.hidden) return
-  refresh()
-  poll = setInterval(refresh, REFRESH_MS)
-}
-
-onMounted(() => {
-  onVisibility()
-  document.addEventListener('visibilitychange', onVisibility)
-})
-onUnmounted(() => {
-  ctrl?.abort()
-  clearInterval(poll)
-  clearInterval(tick)
-  document.removeEventListener('visibilitychange', onVisibility)
-})
-
-watch(
-  () => card.value?.live,
-  (live) => {
-    clearInterval(tick)
-    if (!live) return
-    now.value = Date.now()
-    tick = setInterval(() => (now.value = Date.now()), 1000)
-  },
+const stream = usePoll(fetchStreamCard, REFRESH_MS)
+const card = computed(() => (stream.error.value ? null : stream.data.value))
+// The schedule is only asked for while offline: it loads when the card goes offline, then every SCHEDULE_MS.
+const offline = computed(() => card.value?.live === false)
+const schedule = usePoll(
+  (signal) => (offline.value ? fetchNextStream(signal) : Promise.resolve(null)),
+  () => (offline.value ? SCHEDULE_MS : 0),
+  { source: offline, resetOnSource: false },
 )
+const scheduled = computed(() => (schedule.error.value ? null : schedule.data.value))
+const now = useNow(1000)
 
 const broken = ref(false)
 watch(() => card.value?.image, () => (broken.value = false))
@@ -148,7 +103,6 @@ const title = computed(() => card.value?.title ?? (card.value?.live ? 'Live on T
 .main:hover .title, .main:focus-visible .title { color: var(--vx-accent); }
 .thumb { position: relative; aspect-ratio: 16 / 9; background: var(--vx-surface); }
 .thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.thumb :deep(.vx-ph) { border: none; border-radius: 0; }
 .badge { position: absolute; left: 8px; top: 8px; }
 .offline {
   display: inline-flex; align-items: center; gap: 6px; padding: 1px 8px; font-size: 11px; color: #fff;
