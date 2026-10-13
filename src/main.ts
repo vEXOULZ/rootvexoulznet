@@ -15,6 +15,8 @@ const router = createRouter({
     { path: '/obs_sources', component: () => import('./pages/ObsSourcesPage.vue') },
     // Browser source for OBS: transparent, no site chrome or starfield.
     { path: '/obs_sources/countdown', component: () => import('./pages/CountdownPage.vue') },
+    // Hands an https link over to an app link (obsidian://, …); see lib/redirect.
+    { path: '/tools/httpsredirect', component: () => import('./pages/HttpsRedirectPage.vue') },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('./pages/NotFoundPage.vue') },
   ],
 })
