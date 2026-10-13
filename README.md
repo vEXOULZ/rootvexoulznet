@@ -21,6 +21,7 @@ git config core.hooksPath .conventions/githooks   # once per clone: branch-name 
 | `/` | links, and a stream card from the archive API: the live stream (`/streams?is_live=true`) or, offline, the latest VOD; both link to the past streams |
 | `/obs_sources` | list of the OBS browser sources |
 | `/obs_sources/countdown?h=&m=&s=&text=` | transparent countdown for OBS; no site chrome |
+| `/obsidian.html#vault=&file=` | static page (`public/obsidian.html`) that opens a note in Obsidian and closes its tab; the note is in the fragment, so it never reaches the server |
 | anything else | 404 |
 
 The logo is `public/logo.svg`; each link's icon is `public/links/<icon>.svg`, named by its `icon` in
