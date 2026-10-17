@@ -13,7 +13,7 @@ import { LINK_GROUPS } from '@/lib/links'
         <img class="logo" src="/logo.svg" alt="vexoul.net" width="240" height="80" />
         <h1 class="vx-display">Did you nose?</h1>
         <p class="poem vx-muted">
-          <span>Vexoulz is not real.</span>
+          <span>Bex is not real.</span>
           <span>You are not real.</span>
           <span>No one is real.</span>
           <span>The only thing that's real</span>
