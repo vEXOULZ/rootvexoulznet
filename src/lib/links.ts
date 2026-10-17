@@ -1,4 +1,4 @@
-import { siteInfo, type AccentSiteId } from '@vexoulz/ui'
+import { siteInfo, type AccentSiteId } from '@vex/ui'
 import { TWITCH_CHANNEL, TWITCH_URL } from './config'
 
 export interface SiteLink {
@@ -36,14 +36,14 @@ export const LINK_GROUPS: LinkGroup[] = [
     links: [
       TWITCH_LINK,
       VODS_LINK,
-      { name: 'TikTok', icon: 'tiktok', handle: 'tiktok/@vexoulz', href: 'https://tiktok.com/@vexoulz' },
-      { name: 'YouTube', icon: 'youtube', handle: 'yt/@vexoulz', href: 'https://youtube.com/@vEXOULZ' },
+      { name: 'TikTok', icon: 'tiktok', handle: 'tiktok/@vexouluna', href: 'https://tiktok.com/@vexouluna' },
+      { name: 'YouTube', icon: 'youtube', handle: 'yt/@vexouluna', href: 'https://youtube.com/@vexouluna' },
     ],
   },
   {
     title: 'Community',
     links: [
-      { name: 'Discord Server', icon: 'discord', handle: 'vEXcord', href: 'https://discord.vexoul.net' },
+      { name: 'Discord Server', icon: 'discord', handle: 'vexoulCord', href: 'https://discord.vexoul.net' },
       {
         name: 'Offline Chat', icon: 'offline-chat',
         handle: `ttv/${TWITCH_CHANNEL}`,
@@ -54,7 +54,7 @@ export const LINK_GROUPS: LinkGroup[] = [
   {
     title: 'Dev',
     links: [
-      { name: 'GitHub', icon: 'github', handle: 'github/vEXOULZ', href: 'https://github.com/vEXOULZ' },
+      { name: 'GitHub', icon: 'github', handle: 'github/vexouluna', href: 'https://github.com/vexouLuna' },
       STATUS_LINK,
       DTP_LINK,
     ],
@@ -63,15 +63,15 @@ export const LINK_GROUPS: LinkGroup[] = [
     title: 'Socials',
     links: [
       { name: 'Bluesky', icon: 'bluesky', handle: '@luna.vexoul.net', href: 'https://bsky.app/profile/luna.vexoul.net' },
-      { name: 'Twitter', icon: 'twitter', handle: '@vexoulsad', href: 'https://x.com/vexoulsad' },
-      { name: 'Steam', icon: 'steam', handle: 'steam/vexoulz', href: 'https://steamcommunity.com/id/vexoulz/' },
+      { name: 'Twitter', icon: 'twitter', handle: '@vexouluna', href: 'https://x.com/vexouluna' },
+      { name: 'Steam', icon: 'steam', handle: 'steam/vexouluna', href: 'https://steamcommunity.com/id/vexouluna/' },
     ],
   },
   {
     title: 'Money',
     links: [
       SHOP_LINK,
-      { name: 'Throne', icon: 'throne', handle: 'throne/vexoulz', href: 'https://throne.com/vexoulz' },
+      { name: 'Throne', icon: 'throne', handle: 'throne/vexouluna', href: 'https://throne.com/vexouluna' },
     ],
   },
   {

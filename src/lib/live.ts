@@ -1,4 +1,4 @@
-import { ArchiveClient, NO_CATEGORY, boxArt, normalizeVod, vodThumbnail, watchPath, type RawChapter, type RawVod } from '@vexoulz/vods-core'
+import { ArchiveClient, NO_CATEGORY, boxArt, normalizeVod, vodThumbnail, watchPath, type RawChapter, type RawVod } from '@vex/vods-core'
 import { ARCHIVE_API, TWITCH_CHANNEL, TWITCH_URL, VODS_URL } from './config'
 
 export interface CardGame {

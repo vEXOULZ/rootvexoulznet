@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VxAccount, VxButton, VxEmptyState, VxSiteShell } from '@vexoulz/ui'
+import { VxAccount, VxButton, VxEmptyState, VxSiteShell } from '@vex/ui'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

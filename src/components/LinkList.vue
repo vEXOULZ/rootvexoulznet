@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VxPlaceholder } from '@vexoulz/ui'
+import { VxPlaceholder } from '@vex/ui'
 import type { LinkGroup } from '@/lib/links'
 
 defineProps<{ groups: LinkGroup[] }>()

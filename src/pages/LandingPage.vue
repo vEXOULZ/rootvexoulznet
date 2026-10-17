@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VxAccount, VxSiteShell } from '@vexoulz/ui'
+import { VxAccount, VxSiteShell } from '@vex/ui'
 import LinkList from '@/components/LinkList.vue'
 import LiveCard from '@/components/LiveCard.vue'
 import { LINK_GROUPS } from '@/lib/links'

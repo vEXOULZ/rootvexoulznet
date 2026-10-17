@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // /tools/httpsredirect#r=<url-encoded app link>: opens the app link, then closes the tab (see lib/redirect).
-import { VxEmptyState, VxSiteShell } from '@vexoulz/ui'
+import { VxEmptyState, VxSiteShell } from '@vex/ui'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { redirectTarget } from '@/lib/redirect'
 

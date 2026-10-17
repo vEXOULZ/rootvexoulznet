@@ -1,7 +1,7 @@
 # vexoul.net
 
 The root site: links, socials, stream status and the OBS browser sources. Vue 3 + TypeScript on the shared
-[`@vexoulz/ui`](https://github.com/vEXOULZ/vexoulz-ui) design ("Deep Field").
+[`@vex/ui`](https://github.com/vexouLuna/vex-ui) design ("Deep Field").
 
 ```bash
 npm install
@@ -39,7 +39,7 @@ vods.vexoul.net uses.
 ## Publishing
 
 `.github/workflows/publish.yml` runs the checks, builds, and pushes `dist/` to the `deploy` branch on every
-merge to `main`. The shared design is pinned to a vexoulz-ui tag in `package.json`; Renovate opens the bumps.
+merge to `main`. The shared design is pinned to a vex-ui tag in `package.json`; Renovate opens the bumps.
 
 ## Infrastructure
 
