@@ -1,4 +1,4 @@
-import { NO_CATEGORY, boxArt } from '@vexoulz/vods-core'
+import { NO_CATEGORY, boxArt } from '@vex/vods-core'
 import { TWITCH_ID } from './config'
 import type { CardGame } from './live'
 

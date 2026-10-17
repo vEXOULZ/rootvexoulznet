@@ -3,8 +3,8 @@
 // in the same layout. Both have a "watch past streams" button. Hidden until the first answer, and while the archive
 // API can't be reached. Polls only while the tab is visible (usePoll), and the clocks tick once a second (useNow).
 // Offline, it also shows the next slot on the Twitch schedule (left out if there's none or Twitch can't be reached).
-import { VxButton, VxChip, VxNoThumbnail, VxPosters, VxStatusDot, formatDuration } from '@vexoulz/ui'
-import { useNow, usePoll } from '@vexoulz/ui/utils'
+import { VxButton, VxChip, VxNoThumbnail, VxPosters, VxStatusDot, formatDuration } from '@vex/ui'
+import { useNow, usePoll } from '@vex/ui/utils'
 import { computed, ref, watch } from 'vue'
 import { SCHEDULE_URL, VODS_URL } from '@/lib/config'
 import { fetchStreamCard } from '@/lib/live'

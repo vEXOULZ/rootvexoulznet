@@ -1,4 +1,4 @@
-import { siteInfo, type AccentSiteId } from '@vexoulz/ui'
+import { siteInfo, type AccentSiteId } from '@vex/ui'
 import { TWITCH_CHANNEL, TWITCH_URL } from './config'
 
 export interface SiteLink {
@@ -54,7 +54,7 @@ export const LINK_GROUPS: LinkGroup[] = [
   {
     title: 'Dev',
     links: [
-      { name: 'GitHub', icon: 'github', handle: 'github/vEXOULZ', href: 'https://github.com/vEXOULZ' },
+      { name: 'GitHub', icon: 'github', handle: 'github/vexouLuna', href: 'https://github.com/vexouLuna' },
       STATUS_LINK,
       DTP_LINK,
     ],

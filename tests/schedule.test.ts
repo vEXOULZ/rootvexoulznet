@@ -1,4 +1,4 @@
-import { NO_CATEGORY } from '@vexoulz/vods-core'
+import { NO_CATEGORY } from '@vex/vods-core'
 import { describe, expect, it } from 'vitest'
 import { nextStream } from '../src/lib/schedule'
 
